@@ -1,6 +1,6 @@
 # git-config
 
-git config --global user.name "Денис Власов"
+git config --global user.name "vldnd"
 git config --global user.email "vlasvdenis@yandex.ru"
 
 git config --list # Посмотреть настройки
