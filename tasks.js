@@ -1,8 +1,9 @@
-const rain = Math.round(Math.random());
-//
+const pointsMath = +prompt("", "Введиет кол-во баллов по математике");
+const pointsRus = +prompt("", "Введиет кол-во баллов по русскому");
+const pointsInfo = +prompt("", "Введиет кол-во баллов по информатике");
 
-if (rain) {
-  console.log("Пошел дождь. Возьмите зонт!");
+if (pointsMath + pointsRus + pointsInfo >= 265) {
+  alert("Поздравляю, вы поступили на бюджет!");
 } else {
-  console.log("Дождя нет!");
+  alert("Сорри, вы не поступили :(");
 }
