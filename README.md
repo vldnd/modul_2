@@ -16,7 +16,7 @@ git commit -m 'описание' # сделать коммит
 
 git status # показыват текущий статус
 git diff # показывает текущие изменения
-git diff --color-words # более развернуто
+git diff --color-gitwords # более развернуто
 
 git checkout . # вернуться к последнему коммиту
 git checkout 'название файла' #
