@@ -22,17 +22,21 @@
 
 {
   const item = prompt("Укажите продукт", "");
-  console.log(item);
-  const count = prompt("Укажите количество продукта", "");
-  console.log(count);
+  // console.log(item);
+  const count = +prompt("Укажите количество продукта", "");
+  // console.log(count);
   const category = prompt("Укажите категорию продукта", "");
-  console.log(category);
-  const price = prompt("Укажите цену продукта", "");
-  console.log(price);
+  // console.log(category);
+  const price = +prompt("Укажите цену продукта", "");
+  // console.log(price);
 
-  console.log(
-    `"На складе ${count} единицы товара "${item}" на сумму ${
-      count * price
-    } деревянных"`
-  );
+  if (!isNaN(count) && !isNaN(price)) {
+    console.log(
+      `"На складе ${count} единицы товара "${item}" на сумму ${
+        count * price
+      } деревянных"`
+    );
+  } else {
+    alert("Вы ввели некорректные данные");
+  }
 }
