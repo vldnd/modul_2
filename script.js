@@ -1,42 +1,46 @@
 "use strict";
 
-// {
-//   const item = "Молоко";
-//   const count = 5;
-//   const category = "Молочные изделия";
-//   const price = 60;
+// const converter = (euro) => {
+//   const dollar = euro * 1.2;
+//   const ruble = dollar * 73;
+//   return ruble;
+// };
 
-//   console.log(item);
-//   console.log(`общая сумма товара: ${count * price}`);
-// }
+// console.log(converter(1));
 
-// {
-//   const item = "Мандаринки";
-//   const count = 20;
-//   const category = "Фрукты";
-//   const price = 10;
+// const getCapitalLetter = (str) => {
+//   return str[0].toUpperCase() + str.slice(1).toLowerCase();
+// };
 
-//   console.log(item);
-//   console.log(`общая сумма товара: ${count * price}`);
-// }
+// console.log(getCapitalLetter("привет Мир!"));
 
-// {
-//   const item = prompt("Укажите продукт", "");
-//   // console.log(item);
-//   const count = +prompt("Укажите количество продукта", "");
-//   // console.log(count);
-//   const category = prompt("Укажите категорию продукта", "");
-//   // console.log(category);
-//   const price = +prompt("Укажите цену продукта", "");
-//   // console.log(price);
+// const getReverseString = (str) => {
+//   return str.split("").reverse().join("");
+// };
 
-//   if (!isNaN(count) && !isNaN(price)) {
-//     console.log(
-//       `"На складе ${count} единицы товара "${item}" на сумму ${
-//         count * price
-//       } деревянных"`
-//     );
-//   } else {
-//     alert("Вы ввели некорректные данные");
+// console.log(getReverseString("Привет мир!"));
+
+// const calculate = (sum, quantity, promo) => {
+//   if (quantity > 10) {
+//     sum = sum * 0.97;
 //   }
-// }
+
+//   if (sum > 30000) {
+//     sum = sum * 0.85;
+//   }
+
+//   if (promo === "METHED") {
+//     sum = sum * 0.9;
+//   }
+
+//   if (promo === "G3H2Z1" && sum > 2000) {
+//     sum = sum - 500;
+//   }
+
+//   return sum;
+// };
+
+// console.log(calculate(20000, 11));
+// console.log(calculate(35000, 5));
+// console.log(calculate(35000, 12, "METHED"));
+// console.log(calculate(35000, 12, "G3H2Z1"));
