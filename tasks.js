@@ -1,9 +1,7 @@
-const pointsMath = +prompt("", "Введиет кол-во баллов по математике");
-const pointsRus = +prompt("", "Введиет кол-во баллов по русскому");
-const pointsInfo = +prompt("", "Введиет кол-во баллов по информатике");
+const cash = +prompt("Введите сумму", "");
 
-if (pointsMath + pointsRus + pointsInfo >= 265) {
-  alert("Поздравляю, вы поступили на бюджет!");
+if (cash >= 100 && cash % 100 === 0) {
+  console.log(`Заберите Ваши ${cash}`);
 } else {
-  alert("Сорри, вы не поступили :(");
+  console.log(`Извините, банкомат не может выдать Вам ${cash}`);
 }
