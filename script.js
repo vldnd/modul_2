@@ -1,15 +1,9 @@
 "use strict";
+const a = prompt("Введите число");
+const b = prompt("Введите другое число");
 
-const divider = (a, b) => {
-  while (a != 0 && b != 0) {
-    if (a > b) {
-      a = a % b;
-    } else {
-      b = b % a;
-    }
-  }
-
-  return a + b;
+const min = (x, y) => {
+  return x > y ? x : y;
 };
 
-console.log(divider(64, 32));
+console.log(min(a, b));
