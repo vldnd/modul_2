@@ -1,14 +1,24 @@
 "use strict";
 
-const allСashbox = [4500, 3210, 650, 1250, 7830, 990, 13900, 370];
+const names = [
+  "Noah",
+  "Liam",
+  "Mason",
+  "Jacob",
+  "Robot",
+  "William",
+  "Ethan",
+  "Michael",
+  "Alexander",
+];
 
-const getAverageValue = (arr) => {
-  let x = 0;
-  for (let i = 0; i < arr.length; i++) {
-    x += arr[i];
+const addPrefix = ([...arr]) => {
+  const x = "Mr ";
+
+  for (const key in arr) {
+    arr[key] = x + arr[key];
   }
-  console.log(x);
-  return Math.floor(x / arr.length);
+  return arr;
 };
 
-console.log(getAverageValue(allСashbox));
+console.log(addPrefix(names));
