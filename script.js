@@ -1,9 +1,8 @@
 "use strict";
-const a = prompt("Введите число");
-const b = prompt("Введите другое число");
 
-const min = (x, y) => {
-  return x > y ? x : y;
-};
-
-console.log(min(a, b));
+for (let i = 2; i <= 10; i++) {
+  console.log("________________");
+  for (let j = 1; j <= 10; j++) {
+    console.log(`${i} ** ${j} = ${i ** j}`);
+  }
+}
