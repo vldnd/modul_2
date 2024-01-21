@@ -1,25 +1,14 @@
 "use strict";
 
-const allStudents = [
-  "Иванов",
-  "Петров",
-  "Сидоров",
-  "Кузнецов",
-  "Смирнов",
-  "Попов",
-  "Соколов",
-];
-const failedStudents = ["Сидоров", "Смирнов", "Попов"];
+const allСashbox = [4500, 3210, 650, 1250, 7830, 990, 13900, 370];
 
-const filter = ([...arr1], [...arr2]) => {
-  for (let i = 0; i < arr1.length; i++) {
-    for (let j = 0; j < arr2.length; j++) {
-      if (arr1[i] === arr2[j]) {
-        arr1.splice(i, 1);
-      }
-    }
+const getAverageValue = (arr) => {
+  let x = 0;
+  for (let i = 0; i < arr.length; i++) {
+    x += arr[i];
   }
-  return arr1;
+  console.log(x);
+  return Math.floor(x / arr.length);
 };
 
-console.log(filter(allStudents, failedStudents));
+console.log(getAverageValue(allСashbox));
