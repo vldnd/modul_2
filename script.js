@@ -1,9 +1,11 @@
 "use strict";
 
-const getArrayWithRandomNumbers = (length) => {
-  return new Array(length)
-    .fill(undefined)
-    .map(() => Math.floor(Math.random() * 100));
+const getRandomNumber = (n, m) => {
+  return Math.floor(Math.random() * (Math.abs(n - m) + 1)) + Math.min(n, m);
 };
 
-console.log(getArrayWithRandomNumbers(10));
+const getArrayWithRandomNumbers = (length, n, m) => {
+  return new Array(length).fill(undefined).map(() => getRandomNumber(n, m));
+};
+
+console.log(getArrayWithRandomNumbers(10, 5, 1));
