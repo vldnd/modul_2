@@ -1,13 +1,33 @@
 "use strict";
 
-const getIntercalaryYearsByRange = (n, m) => {
+const getGameMoreLess = (n, m) => {
+  const y = Math.floor(Math.random() * Math.abs(n - m) + 1) + Math.min(n, m);
+  console.log(y);
+  let x = +prompt(`Введите число от ${Math.min(n, m)} до ${Math.max(n, m)}`);
   const arr = [];
-  for (let i = n; i <= m; i++) {
-    if ((i % 4 === 0 && !(i % 100 === 0)) || i % 400 === 0) {
-      arr.push(i);
+  let message = `Вы угадали, это число ${y}`;
+  while (true) {
+    if (arr.length === Math.abs(n - m) * 0.3) {
+      message = "Game over";
+      break;
+    } else if (x > Math.max(n, m) || x < Math.min(n, m)) {
+      x = +prompt(`Введите число от ${Math.min(n, m)} до ${Math.max(n, m)}`);
+    } else if (arr.includes(x)) {
+      x = +prompt("Вы уже вводили это число!");
+    } else if (x > y) {
+      arr.push(x);
+      x = +prompt("Меньше!");
+    } else if (x < y) {
+      arr.push(x);
+      x = +prompt("Больше!");
+    } else {
+      break;
     }
   }
-  return arr;
+  alert(message);
+  if (confirm("Хотите сыграть еще раз?")) {
+    getGameMoreLess(n, m);
+  }
 };
 
-console.log(getIntercalaryYearsByRange(1895, 2024));
+console.log(getGameMoreLess(100, 50));
