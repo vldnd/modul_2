@@ -1,33 +1,36 @@
 "use strict";
 
-const getGameMoreLess = (n, m) => {
-  const y = Math.floor(Math.random() * Math.abs(n - m) + 1) + Math.min(n, m);
-  console.log(y);
-  let x = +prompt(`Введите число от ${Math.min(n, m)} до ${Math.max(n, m)}`);
-  const arr = [];
-  let message = `Вы угадали, это число ${y}`;
-  while (true) {
-    if (arr.length === Math.abs(n - m) * 0.3) {
-      message = "Game over";
-      break;
-    } else if (x > Math.max(n, m) || x < Math.min(n, m)) {
-      x = +prompt(`Введите число от ${Math.min(n, m)} до ${Math.max(n, m)}`);
-    } else if (arr.includes(x)) {
-      x = +prompt("Вы уже вводили это число!");
-    } else if (x > y) {
-      arr.push(x);
-      x = +prompt("Меньше!");
-    } else if (x < y) {
-      arr.push(x);
-      x = +prompt("Больше!");
-    } else {
-      break;
-    }
-  }
-  alert(message);
-  if (confirm("Хотите сыграть еще раз?")) {
-    getGameMoreLess(n, m);
-  }
+const cart = {
+  items: [],
+  totalPrice: 0,
+  count: 0,
+  getTotalPrice() {
+    return this.totalPrice;
+  },
+  add(product, price, quantity = 1) {
+    this.items.push({ product: product, price: price, quantity: quantity });
+  },
+  increaseCount(x) {
+    return x * this.count;
+  },
+  calculateItemPrice() {
+    this.totalPrice = this.items.reduce(
+      (acc, curr) => acc + curr.price * curr.quantity,
+      0
+    );
+  },
+  clear() {
+    this.items = [];
+    this.totalPrice = 0;
+    this.count = 0;
+  },
+  print() {
+    const x = JSON.stringify(this.items);
+
+    console.log(x, this.totalPrice);
+  },
 };
 
-console.log(getGameMoreLess(100, 50));
+cart.add("Молоко", 60, 3);
+cart.calculateItemPrice();
+cart.print();
