@@ -6,4 +6,4 @@ const getArrayWithRandomNumbers = (length) => {
     .map(() => Math.floor(Math.random() * 100));
 };
 
-console.log(x(10));
+console.log(getArrayWithRandomNumbers(10));
