@@ -1,36 +1,16 @@
 'use strict';
 
-const getGameMoreLess = (n, m) => {
-  const y = Math.floor(Math.random() * Math.abs(n - m) + 1) + Math.min(n, m);
-  console.log(y);
-  const x = +prompt(`Введите число от ${Math.min(n, m)} до ${Math.max(n, m)}`);
-  const arr = [];
-  const recursion = (x, y, arr) => {
-    if (arr.length === Math.abs(n - m) * 0.3) {
-      return 'Game over';
-    } else if (x > Math.max(n, m) || x < Math.min(n, m)) {
-      x = +prompt(`Введите число от ${Math.min(n, m)} до ${Math.max(n, m)}`);
-      return recursion(x, y, arr);
-    } else if (arr.includes(x)) {
-      x = +prompt('Вы уже вводили это число!');
-      return recursion(x, y, arr);
-    } else if (x > y) {
-      arr.push(x);
-      x = +prompt('Меньше!');
-      return recursion(x, y, arr);
-    } else if (x < y) {
-      arr.push(x);
-      x = +prompt('Больше!');
-      return recursion(x, y, arr);
-    } else {
-      return `Вы угадали, это число ${y}`;
-    }
-  };
-  const message = recursion(x, y, arr);
-  alert(message);
-  if (confirm('Хотите сыграть еще раз?')) {
-    getGameMoreLess(n, m);
+const arr = [];
+
+const newArr = arr => {
+  const x = Math.floor(Math.random() * 11);
+  arr.push(x);
+  const y = arr.reduce((acc, init) => acc + init, 0);
+  if (y < 50) {
+    return newArr(arr);
+  } else {
+    return arr;
   }
 };
 
-console.log(getGameMoreLess(100, 50));
+console.log(newArr(arr));
