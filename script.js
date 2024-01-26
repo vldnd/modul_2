@@ -2,11 +2,7 @@
 
 const cart = {
   items: [],
-  totalPrice: 0,
   count: 0,
-  getTotalPrice() {
-    return this.totalPrice;
-  },
   add(product, price, quantity = 1) {
     this.items.push({ product: product, price: price, quantity: quantity });
   },
@@ -14,7 +10,7 @@ const cart = {
     return x * this.count;
   },
   calculateItemPrice() {
-    this.totalPrice = this.items.reduce(
+    return this.items.reduce(
       (acc, curr) => acc + curr.price * curr.quantity,
       0
     );
@@ -29,8 +25,11 @@ const cart = {
 
     console.log(x, this.totalPrice);
   },
+  get totalPrice() {
+    return this.calculateItemPrice();
+  },
 };
 
 cart.add("Молоко", 60, 3);
-cart.calculateItemPrice();
+cart.getTotalPrice;
 cart.print();
