@@ -2,4 +2,4 @@
 
 const startGame = window.PRS;
 
-startGame();
+startGame('EN');
