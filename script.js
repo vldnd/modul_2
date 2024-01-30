@@ -1,5 +1,5 @@
 'use strict';
 
-const startGame = window.PRS;
+// const startGame = window.PRS;
 
-startGame('EN');
+// startGame('EN');

@@ -56,7 +56,7 @@
         "functions": false
       }
     ],
-    "arrow-body-style": ["error", "as-needed"],
+    "arrow-body-style": "off",
     "arrow-spacing": ["error"],
     "no-confusing-arrow": [
       "error",
