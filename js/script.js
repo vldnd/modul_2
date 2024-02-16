@@ -2,7 +2,13 @@
 
 const overlay = document.querySelector('.overlay');
 
+const overlayModal = document.querySelector('.overlay__modal');
+
+const modalClose = document.querySelector('.modal__close');
+
 const tabelBody = document.querySelector('.table__body');
+
+const btn = document.querySelector('.panel__add-goods');
 
 const arr = [
   {
@@ -66,9 +72,23 @@ const arr = [
   },
 ];
 
-overlay.remove('.active');
+overlay.classList.remove('active');
 
-console.log(overlay);
+btn.addEventListener('click', () => {
+  overlay.classList.add('active');
+});
+
+overlayModal.addEventListener('click', event => {
+  event.stopPropagation();
+});
+
+modalClose.addEventListener('click', () => {
+  overlay.classList.remove('active');
+});
+
+overlay.addEventListener('click', () => {
+  overlay.classList.remove('active');
+});
 
 const createRow = obj => {
   tabelBody.insertAdjacentHTML(
