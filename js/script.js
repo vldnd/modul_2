@@ -78,8 +78,15 @@ btn.addEventListener('click', () => {
   overlay.classList.add('active');
 });
 
-overlayModal.addEventListener('click', event => {
-  event.stopPropagation();
+// overlayModal.addEventListener('click', event => {
+//   event.stopPropagation();
+// });
+
+overlayModal.addEventListener('click', e => {
+  const target = e.target;
+  if (target === overlayModal || target.classList.contains('close')) {
+    overlayModal.classList.remove('is-visible');
+  }
 });
 
 modalClose.addEventListener('click', () => {
