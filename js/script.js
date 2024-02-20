@@ -2,13 +2,19 @@
 
 const overlay = document.querySelector('.overlay');
 
-const overlayModal = document.querySelector('.overlay__modal');
+const form = overlay.querySelector('.modal__form');
 
 const modalClose = document.querySelector('.modal__close');
 
-const tabelBody = document.querySelector('.table__body');
+const tableBody = document.querySelector('.table__body');
 
-const btn = document.querySelector('.panel__add-goods');
+const btnAdd = document.querySelector('.panel__add-goods');
+
+const btnDel = document.querySelector('.table__btn_del');
+console.log(btnDel);
+
+const totalPrice = document.querySelector('.cms__total-price');
+const totalPriceModal = document.querySelector('.modal__total-price');
 
 const arr = [
   {
@@ -74,54 +80,148 @@ const arr = [
 
 overlay.classList.remove('active');
 
-btn.addEventListener('click', () => {
-  overlay.classList.add('active');
-});
+const modalControl = (btnAdd, overlay, modalClose) => {
+  btnAdd.addEventListener('click', () => {
+    overlay.classList.add('active');
+  });
 
-// overlayModal.addEventListener('click', event => {
-//   event.stopPropagation();
-// });
+  overlay.addEventListener('click', e => {
+    const target = e.target;
 
-overlayModal.addEventListener('click', e => {
-  const target = e.target;
-  if (target === overlayModal || target.classList.contains('close')) {
-    overlayModal.classList.remove('is-visible');
+    if (!target.closest('.overlay__modal') || target.classList.contains('close')) {
+      overlay.classList.remove('active');
+    }
+  });
+
+  modalClose.addEventListener('click', () => {
+    overlay.classList.remove('active');
+  });
+};
+
+const randomId = () => {
+  return Math.floor(Math.random() * 100000000000000);
+};
+
+const vendorId = () => {
+  const vendorCodeId = document.querySelector('.vendor-code__id');
+  const id = (vendorCodeId.textContent = randomId());
+  return id;
+};
+
+const createRow = (obj, index) => {
+  return `<tr class="table__input" data-index=${index}>
+    <td class="table__cell" type="number">${index + 1}</td>
+    <td class="table__cell table__cell_left table__cell_name"  data-id="${obj.id}">
+      <span class="table__cell-id" >id: ${vendorId() || randomId()}</span>
+      ${obj.title || obj.name}
+    </td>
+    <td class="table__cell table__cell_left" >${obj.category}</td>
+    <td class="table__cell" >${obj.units}</td>
+    <td class="table__cell" >${obj.count}</td>
+    <td class="table__cell" >$${obj.price}</td>
+    <td class="table__cell" >$${obj.count * obj.price}</td>
+    <td class="table__cell table__cell_btn-wrapper">
+      <button class="table__btn table__btn_pic"></button>
+      <button class="table__btn table__btn_edit"></button>
+      <button class="table__btn table__btn_del"></button>
+    </td>
+  </tr>`;
+};
+
+const createGoods = arr => {
+  return arr.map(createRow);
+};
+
+const sumTotalCartPrice = arr => {
+  return arr.reduce((acc, cur) => acc + cur.count * cur.price, 0);
+};
+
+const renderTotalCartPrice = arr => {
+  console.log(arr);
+  totalPrice.textContent = `$ ${sumTotalCartPrice(arr)}`;
+};
+
+const renderTableBody = data => {
+  const trs = createGoods(arr);
+  tableBody.innerHTML = '';
+  trs.forEach(item => {
+    tableBody.insertAdjacentHTML('beforeend', item);
+  });
+  renderTotalCartPrice(arr);
+
+  // tableBody.append(...trs);
+};
+
+const addProductPage = (product, arr) => {
+  arr.push({ ...product, count: +product.count, price: +product.price });
+  renderTableBody(arr);
+  renderTotalCartPrice(arr);
+};
+
+const renderModalTotalPrice = (count, price) => {
+  if (!count || !price) {
+    totalPriceModal.textContent = 0;
   }
-});
 
-modalClose.addEventListener('click', () => {
-  overlay.classList.remove('active');
-});
-
-overlay.addEventListener('click', () => {
-  overlay.classList.remove('active');
-});
-
-const createRow = obj => {
-  tabelBody.insertAdjacentHTML(
-    'beforeend',
-    `<tr>
-  <td class="table__cell">${obj.id}</td>
-  <td class="table__cell table__cell_left table__cell_name" data-id="${obj.id}">
-    <span class="table__cell-id">id: ${obj.id}</span>
-    ${obj.title}
-  </td>
-  <td class="table__cell table__cell_left">${obj.category}</td>
-  <td class="table__cell">${obj.units}</td>
-  <td class="table__cell">${obj.count}</td>
-  <td class="table__cell">$${obj.price}</td>
-  <td class="table__cell">$${obj.count * obj.price}</td>
-  <td class="table__cell table__cell_btn-wrapper">
-    <button class="table__btn table__btn_pic"></button>
-    <button class="table__btn table__btn_edit"></button>
-    <button class="table__btn table__btn_del"></button>
-  </td>
-</tr>`,
-  );
+  totalPriceModal.textContent = `$ ${count * price}`;
 };
 
-const renderGoods = arr => {
-  arr.map(createRow);
+const formControl = (form, arr, closeModal) => {
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const newProduct = Object.fromEntries(formData);
+    addProductPage(newProduct, arr);
+    overlay.classList.remove('active');
+  });
+
+  form.elements.discount.addEventListener('click', () => {
+    if (form.elements.discount_count.hasAttribute('disabled')) {
+      form.elements.discount_count.removeAttribute('disabled');
+    } else {
+      form.elements.discount_count.setAttribute('disabled', 'disabled');
+    }
+  });
+
+  const priceFormElement = form.elements.price;
+  const countFormElement = form.elements.count;
+
+  renderModalTotalPrice(+countFormElement.value, +priceFormElement.value);
+
+  priceFormElement.addEventListener('input', () => {
+    console.log(countFormElement, priceFormElement);
+    renderModalTotalPrice(+countFormElement.value, +priceFormElement.value);
+  });
+  countFormElement.addEventListener('input', () => {
+    renderModalTotalPrice(+countFormElement.value, +priceFormElement.value);
+  });
+};
+const requiredInput = form => {
+  const modalInput = form.querySelectorAll('.modal__input');
+  return modalInput.forEach(init => init.setAttribute('required', 'required'));
 };
 
-renderGoods(arr);
+const deleteControl = (tableBody, arr) => {
+  tableBody.addEventListener('click', event => {
+    if (event.target.closest('.table__btn_del')) {
+      const tr = event.target.closest('.table__input');
+      const index = +tr.dataset.index;
+      console.log(arr);
+      arr.splice(index, 1);
+      renderTableBody(arr);
+    }
+  });
+};
+
+vendorId();
+
+deleteControl(tableBody, arr);
+
+requiredInput(form);
+
+formControl(form, arr);
+
+modalControl(btnAdd, overlay, modalClose);
+renderTableBody(arr);
+renderTotalCartPrice(arr);
